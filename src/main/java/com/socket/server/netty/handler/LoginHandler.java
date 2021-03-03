@@ -17,6 +17,8 @@ package com.socket.server.netty.handler;
 
 import com.socket.server.domain.ChannelRepository;
 import com.socket.server.domain.Client;
+import com.socket.server.domain.StartTransactionRequest;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -39,7 +41,17 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        ByteBuf byteBuf= (ByteBuf) msg;
+        int value=byteBuf.readInt();
+        System.out.println(value);
+        if(value==1){
+            StartTransactionRequest startTransactionRequest;
+        }
+    }
 
+    /*public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        *//*StartTransactionRequest startTransactionRequest= (StartTransactionRequest) msg;
+        System.out.println(startTransactionRequest);*//*
         if (!(msg instanceof String) || !((String) msg).startsWith("login ")) {
             ctx.fireChannelRead(msg);
             return;
@@ -54,5 +66,6 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
         client.login(channelRepository, ctx.channel());
 
         ctx.writeAndFlush("Successfully logged in as " + client.getClientName() + ". \r\n");
-    }
+    }*/
+
 }

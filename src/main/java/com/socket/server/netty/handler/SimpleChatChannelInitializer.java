@@ -15,11 +15,14 @@
  */
 package com.socket.server.netty.handler;
 
+import com.socket.server.domain.StartTransactionRequest;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.serialization.ObjectDecoder;
+import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +39,8 @@ public class SimpleChatChannelInitializer extends ChannelInitializer<SocketChann
 
     private final SimpleChatServerHandler simpleChatServerHandler;
     private final LoginHandler loginHandler;
-    private final StringEncoder stringEncoder = new StringEncoder();
-    private final StringDecoder stringDecoder = new StringDecoder();
+    private final ObjectEncoder stringEncoder = new ObjectEncoder();
+    private final RequestDecoder stringDecoder = new RequestDecoder();
 
     @Override
     protected void initChannel(SocketChannel socketChannel) {
@@ -47,8 +50,8 @@ public class SimpleChatChannelInitializer extends ChannelInitializer<SocketChann
         pipeline.addLast(new DelimiterBasedFrameDecoder(1024 * 1024, Delimiters.lineDelimiter()));
 
         pipeline.addLast(stringDecoder);
-        pipeline.addLast(stringEncoder);
-        pipeline.addLast(simpleChatServerHandler);
+        //pipeline.addLast(stringEncoder);
+       // pipeline.addLast(simpleChatServerHandler);
         pipeline.addLast(loginHandler);
     }
 }

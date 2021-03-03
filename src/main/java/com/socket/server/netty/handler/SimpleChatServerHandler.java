@@ -17,6 +17,7 @@ package com.socket.server.netty.handler;
 
 import com.socket.server.domain.ChannelRepository;
 import com.socket.server.domain.Client;
+import com.socket.server.domain.StartTransactionRequest;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
